@@ -16,7 +16,15 @@ class GameScene: SKScene {
     private var lastUpdateTime : TimeInterval = 0
     
     override func sceneDidLoad() {
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.lastUpdateTime = 0
+        
+        let player = PlayerEntity()
+        entities.append(player)
+        
+        if let playerNodeComponent = player.component(ofType: NodeComponent.self), let playerNode = playerNodeComponent.node {
+            addChild(playerNode)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -27,7 +35,7 @@ class GameScene: SKScene {
         let dt = currentTime - self.lastUpdateTime
 
         for entity in self.entities {
-            entity.update(deltaTime: dt)
+            entity.components.forEach({ $0.update(deltaTime: dt) })
         }
         
         self.lastUpdateTime = currentTime

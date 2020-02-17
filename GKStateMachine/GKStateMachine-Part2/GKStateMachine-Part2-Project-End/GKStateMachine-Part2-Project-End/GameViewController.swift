@@ -11,27 +11,20 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-    
-    lazy var gameView: SKView! = {
-        let v = SKView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+    override func loadView() {
+        super.loadView()
+        view = SKView(frame: view.frame)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(gameView)
-        
-        gameView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        gameView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        gameView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        gameView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        let scene = GameScene(size: gameView.bounds.size)
-        scene.scaleMode = .fill
-        scene.backgroundColor = .blue
-        gameView.presentScene(scene)
+        if let gameView = view as? SKView {
+            let scene = GameScene(size: view.frame.size)
+            scene.scaleMode = .fill
+            scene.backgroundColor = .black
+            gameView.presentScene(scene)
+        }
     }
 
     override var shouldAutorotate: Bool {

@@ -16,6 +16,7 @@ class GameScene: SKScene {
     private var lastUpdateTime : TimeInterval = 0
     
     override func sceneDidLoad() {
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.lastUpdateTime = 0
     }
     
